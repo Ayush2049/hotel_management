@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="../HMT.Core/HMT.Core.csproj" />
+  <Project Path="../HMT.Entities/HMT.Entities.csproj" />
+  <Project Path="../HMT.Repositories/HMT.Repositories.csproj" />
+  <Project Path="../HMT.Services/HMT.Services.csproj" />
+  <Project Path="HMT.API.csproj" />
+</Solution>
