@@ -11,8 +11,4 @@
     <ProjectReference Include="..\HMT.Repositories\HMT.Repositories.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Customer\" />
-  </ItemGroup>
-
 </Project>
