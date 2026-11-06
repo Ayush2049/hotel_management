@@ -22,6 +22,7 @@ namespace HMT.API.Controllers.Customer
             _mapper = mapper;
         }
 
+        // INSERT / UPDATE CUSTOMER
         [HttpPost("upsert")]
         public async Task<IActionResult> UpsertCustomerDetailsAsync(
             [FromBody] CustomerModel model)
@@ -38,6 +39,52 @@ namespace HMT.API.Controllers.Customer
                 }
 
                 return Ok(data);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
+
+        // GET ALL CUSTOMERS
+        [HttpGet]
+        public async Task<IActionResult> GetAllCustomersAsync()
+        {
+            try
+            {
+                var customers = await _customerService.GetAllCustomersAsync();
+
+                var response = _mapper.Map<List<CustomerModel>>(customers);
+
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
+        }
+
+        // GET CUSTOMER BY ID
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetCustomerByIdAsync(int id)
+        {
+            try
+            {
+                if (id <= 0)
+                {
+                    return BadRequest("Customer ID must be positive.");
+                }
+
+                var customer = await _customerService.GetCustomerByIdAsync(id);
+
+                if (customer == null)
+                {
+                    return NotFound($"Customer with ID {id} was not found.");
+                }
+
+                var response = _mapper.Map<CustomerModel>(customer);
+
+                return Ok(response);
             }
             catch (Exception)
             {

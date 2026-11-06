@@ -14,9 +14,22 @@ namespace HMT.Services.Customer
             _customerRepository = customerRepository;
         }
 
+        // Insert / Update
         public async Task<MyResponse?> UpsertCustomerDetails(CustomerEntity entity)
         {
             return await _customerRepository.UpsertCustomerDetails(entity);
+        }
+
+        // Get All Customers
+        public async Task<List<CustomerEntity>> GetAllCustomersAsync()
+        {
+            return await _customerRepository.GetAllCustomersAsync();
+        }
+
+        // Get Customer By ID
+        public async Task<CustomerEntity?> GetCustomerByIdAsync(int id)
+        {
+            return await _customerRepository.GetCustomerByIdAsync(id);
         }
     }
 }

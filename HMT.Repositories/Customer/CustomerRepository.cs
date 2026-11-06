@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿
+using Dapper;
 using HMT.Entities.Common;
 using HMT.Entities.Customer;
 using HMT.Repositories.Common;
@@ -13,6 +14,7 @@ namespace HMT.Repositories.Customer
         {
         }
 
+        // INSERT / UPDATE
         public async Task<MyResponse?> UpsertCustomerDetails(CustomerEntity entity)
         {
             using (var conn = CreateConnection())
@@ -30,6 +32,41 @@ namespace HMT.Repositories.Customer
 
                 return await conn.QueryFirstOrDefaultAsync<MyResponse>(
                     "[Customer].[UpsertCustomerDetails]",
+                    parameters,
+                    commandType: CommandType.StoredProcedure
+                );
+            }
+        }
+
+        // GET ALL CUSTOMERS
+        public async Task<List<CustomerEntity>> GetAllCustomersAsync()
+        {
+            using (var conn = CreateConnection())
+            {
+                await conn.OpenAsync();
+
+                var customers = await conn.QueryAsync<CustomerEntity>(
+                    "[Customer].[GetAllCustomers]",
+                    commandType: CommandType.StoredProcedure
+                );
+
+                return customers.ToList();
+            }
+        }
+
+        // GET CUSTOMER BY ID
+        public async Task<CustomerEntity?> GetCustomerByIdAsync(int id)
+        {
+            using (var conn = CreateConnection())
+            {
+                await conn.OpenAsync();
+
+                var parameters = new DynamicParameters();
+
+                parameters.Add("@Id", id);
+
+                return await conn.QueryFirstOrDefaultAsync<CustomerEntity>(
+                    "[Customer].[GetCustomerById]",
                     parameters,
                     commandType: CommandType.StoredProcedure
                 );

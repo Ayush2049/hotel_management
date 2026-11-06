@@ -1,5 +1,6 @@
 
-using HMT.API.Mapping;
+
+using HMT.API.Models.Mapper;
 using HMT.Repositories.Common;
 using HMT.Repositories.Customer;
 using HMT.Services.Customer;
@@ -40,7 +41,7 @@ builder.Services.AddSwaggerGen(options =>
 // 3. Register AutoMapper
 builder.Services.AddAutoMapper(
     cfg => { },
-    typeof(CustomerMappingProfile).Assembly
+    typeof(AutoMapperProfile).Assembly
 );
 
 // 4. Register Database Connection Factory
