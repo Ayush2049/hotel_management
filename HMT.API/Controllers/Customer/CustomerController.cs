@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using HMT.API.Models.Customers;
 using HMT.Entities.Customer;
 using HMT.Services.Customer;
@@ -25,16 +26,23 @@ namespace HMT.API.Controllers.Customer
         public async Task<IActionResult> UpsertCustomerDetailsAsync(
             [FromBody] CustomerModel model)
         {
-            CustomerEntity entity = _mapper.Map<CustomerEntity>(model);
-
-            var data = await _customerService.UpsertCustomerDetails(entity);
-
-            if (data == null)
+            try
             {
-                return StatusCode(500, "No response received from database.");
-            }
+                CustomerEntity entity = _mapper.Map<CustomerEntity>(model);
 
-            return Ok(data);
+                var data = await _customerService.UpsertCustomerDetails(entity);
+
+                if (data == null)
+                {
+                    return StatusCode(500, "No response received from database.");
+                }
+
+                return Ok(data);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An unexpected error occurred.");
+            }
         }
     }
 }

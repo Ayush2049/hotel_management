@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HMT.Entities.Common
+﻿namespace HMT.Entities.Common
 {
     public class MyResponse
     {
+        public int Id { get; set; }
+
         public int StatusId { get; set; }
+
         public string Msg { get; set; } = string.Empty;
     }
 }

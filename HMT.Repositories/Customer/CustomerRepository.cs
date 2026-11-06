@@ -21,6 +21,7 @@ namespace HMT.Repositories.Customer
 
                 var parameters = new DynamicParameters();
 
+                parameters.Add("@Id", entity.Id);
                 parameters.Add("@Name", entity.Name);
                 parameters.Add("@Age", entity.Age);
                 parameters.Add("@Email", entity.Email);

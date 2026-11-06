@@ -1,4 +1,5 @@
-﻿using HMT.Entities.Common;
+﻿
+using HMT.Entities.Common;
 using HMT.Entities.Customer;
 using HMT.Repositories.Customer;
 
@@ -6,7 +7,7 @@ namespace HMT.Services.Customer
 {
     public class CustomerService : ICustomerService
     {
-        public readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
 
         public CustomerService(ICustomerRepository customerRepository)
         {
